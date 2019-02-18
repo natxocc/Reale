@@ -3,7 +3,7 @@
 
 // import NTables from "../components/NTables.vue";
 // import NDialog from "../components/NDialog.vue";
-import {mixins} from "../mixins.js";
+// import Custom from "../mixins";
 export default {
   template: `
 
@@ -82,9 +82,9 @@ export default {
       </q-bar>
     </div>
     <!-- TABLA DE DATOS -->
-    <n-tables :columnDefs="columnDefs" :columnDefsSub="columnDefsSub" :filters="filters" :masterDetail="true" :quickFilter="quickFilter" :rowClassRules="rowClassRules" :rowData="rowData" @gridData="gridData" @rowSelected="rowSelected" @rowSelectedSub="rowSelectedSub"/>
+    <!-- <n-tables :columnDefs="columnDefs" :columnDefsSub="columnDefsSub" :filters="filters" :masterDetail="true" :quickFilter="quickFilter" :rowClassRules="rowClassRules" :rowData="rowData" @gridData="gridData" @rowSelected="rowSelected" @rowSelectedSub="rowSelectedSub"/> -->
     <!-- DIALOGO -->
-    <n-dialog :data="dialogData" :fields="dialogFields" :model="dialogModel" @cancel="dialogModel=false" @onChange="onChange" @onSave="onSave"></n-dialog>
+    <!-- <n-dialog :data="dialogData" :fields="dialogFields" :model="dialogModel" @cancel="dialogModel=false" @onChange="onChange" @onSave="onSave"></n-dialog> -->
   </div>
 
   ` ,
@@ -92,7 +92,7 @@ export default {
     // NTables,
     // NDialog
   },
-  mixins,
+  mixins: [Custom],
   data() {
     return {
       filters: null,

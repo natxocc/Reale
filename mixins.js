@@ -1,13 +1,7 @@
-function showLoading() {
-  Loading.show();
-}
-function hideLoading() {
-  Loading.hide();
-}
-export const mixins= {
+var Custom = {
   data() {
     return {
-      lang: this.$q.lang.isoName,
+      lang: "es",
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,
