@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-img :ratio="16/9" :src="require('../assets/office.jpg')" alt="Image" contain spinner-color="white"/>
+    PPP
   </div>
 </template>
 

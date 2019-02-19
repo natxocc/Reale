@@ -1,4 +1,4 @@
-var Custom = {
+export default ({
   data() {
     return {
       lang: "es",
@@ -9,6 +9,7 @@ var Custom = {
       idKey: null,
       table: null,
       cmd: null,
+      loading: false,
       dialogModel: false,
       dialogData: {},
       dialogFields: {},
@@ -24,7 +25,6 @@ var Custom = {
      */
     callData(post) {
       let self = this;
-      
       // showLoading();
       post.sid = localStorage.sid
       post.lang = this.$q.lang.db
@@ -209,4 +209,4 @@ var Custom = {
     }
     this.lang = localStorage.lang;
   }
-}
+})

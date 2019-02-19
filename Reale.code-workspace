@@ -5,19 +5,10 @@
 		}
 	],
 	"settings": {
-		"emeraldwalk.runonsave": {
-			"commands": [
-				{
-					"match": "\\.php$",
-					"cmd": "${workspaceRoot}/public.bat"
-				}
-			]
-		},
 		"editor.wordWrap": "on",
 		"git.confirmSync": false,
 		"git.autofetch": true,
 		"files.autoSave": "onFocusChange",
-		"vetur.format.defaultFormatter.html": "prettyhtml",
 		"editor.minimap.enabled": false,
 		"editor.tabSize": 2,
 		"editor.formatOnPaste": true,
@@ -25,26 +16,9 @@
 		"editor.snippetSuggestions": "top",
 		"workbench.colorTheme": "Monokai",
 		"git.enableSmartCommit": true,
-		"vetur.format.defaultFormatterOptions": {
-			"js-beautify-html": {
-				"wrap_attributes": "force-expand-multiline"
-			},
-			"prettyhtml": {
-				"printWidth": 500,
-				"singleQuote": false,
-				"sortAttributes": true,
-				"wrapAttributes": false
-			},
-			"prettier": {
-				"bracketSpacing": false,
-				"semi": true,
-				"arrowParens": "always",
-				"preserve": "never",
-				"printWidth": 250
-			}
-		},
-		"php.validate.executablePath": "c:\\php\\php.exe",
+		// "php.validate.executablePath": "c:\\php\\php.exe",
 		"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-		"breadcrumbs.enabled": true
+		"breadcrumbs.enabled": true,
+		"es6-css-minify.minifyOnSave": "yes",
 	}
 }

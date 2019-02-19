@@ -1,4 +1,4 @@
-import Home from './pages/Home.js'
+// var Home =  httpVueLoader('./pages/Home.vue')
 import Recibos from './pages/Recibos.js'
 // import Clientes from './pages/Clientes.vue'
 // import Polizas from './pages/Polizas.vue'
@@ -6,13 +6,12 @@ import Recibos from './pages/Recibos.js'
 // import Registros from './pages/Registros.vue'
 // import Page404 from './pages/404.vue'
 // import Router from './lib/js/vue-router.min.js'
-// Vue.use(Router)
-export const router = new VueRouter({
+export default new VueRouter({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      // component: httpVueLoader('./pages/Home.vue')
     },
     {
       path: '/recibos/:recibo',

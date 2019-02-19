@@ -3,8 +3,9 @@
 
 // import NTables from "../components/NTables.vue";
 // import NDialog from "../components/NDialog.vue";
-// import Custom from "../mixins";
-export default {
+import mixins from '../mixins.js'
+export default ({
+  name: "Recibos",
   template: `
 
   <div class="container">
@@ -92,7 +93,7 @@ export default {
     // NTables,
     // NDialog
   },
-  mixins: [Custom],
+  mixins: [mixins],
   data() {
     return {
       filters: null,
@@ -257,9 +258,11 @@ export default {
     }
   },
   beforeMount() {
+    console.log(this.$route)
+    console.log(this.lang)
     this.init();
   },
   watch: {
     $route: "init"
   }
-};
+});
