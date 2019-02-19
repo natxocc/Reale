@@ -1,0 +1,37 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link href="vendor/ag-grid.css" rel="stylesheet" />
+  <link href="vendor/ag-theme-balham.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@20.0.0/dist/ag-grid-enterprise.min.noStyle.js"></script>
+  <script src="vendor/ag-grid-vue.umd.php"></script>
+</head>
+<body>
+  <div id="app">
+    <ag-grid-vue style="height: 50vh" class="ag-theme-balham" :column-defs="columnDefs" :row-data="rowData">
+    </ag-grid-vue>
+  </div>
+  <script>
+    Vue.component('ag-grid-vue', AgGridVue.AgGridVue)
+    var app = new Vue({
+      el:"#app",
+      components: {
+        "ag-grid-vue": AgGridVue.AgGridVue
+      },
+      data:{
+        rowData: null,
+        columnDefs: null
+      }
+    })
+
+  </script>
+</body>
+
+</html>
