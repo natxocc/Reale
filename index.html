@@ -8,15 +8,15 @@
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
   <title>CRC Reale</title>
-  <link href="lib/css/Icons64.css" rel="stylesheet">
+  <link href="min/icons.min.css" rel="stylesheet">
   <link rel="icon" href="favicon.png" type="image/x-icon">
-  <link href="lib/css/vuetify.min.css" rel="stylesheet" type="text/css">
+  <link href="min/vuetify.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  <script src="lib/js/vue.js"></script>
-  <script src="lib/js/vue-router.min.js"></script>
-  <script src="lib/js/vuetify.min.js"></script>
+  <script src="min/vue.min.js"></script>
+  <script src="min/vue-router.min.js"></script>
+  <script src="min/vuetify.min.js"></script>
 
   <div id="app">
     <v-app id="inspire">
@@ -119,9 +119,9 @@
   </div>
 
   <script type="module">
-    import lang from './lib/lang/es.js'
-    import mixins from './mixins.min.js'
-    import router from './router.min.js'
+    import lang from './min/lang.min.js'
+    import mixins from './min/mixins.min.js'
+    import router from './min/router.min.js'
     new Vue({
       el: '#app',
       mixins: [mixins],
