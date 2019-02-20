@@ -1,4 +1,5 @@
-import mixins from '../min/mixins.min.js'
+import mixins from './mixins.min.js'
+import {NTables} from "./components.min.js"
 export const Home = ({
   name: "home",
   template: `<div>
@@ -90,7 +91,7 @@ export const Recibos = ({
 
   `,
   components: {
-    // NTables,
+    NTables,
     // NDialog
   },
   mixins: [mixins],
@@ -335,7 +336,7 @@ export const Clientes = ({
   components: {
     NTables
   },
-  mixins: [Custom],
+  mixins: [mixins],
   data() {
     return {
       // TABLE

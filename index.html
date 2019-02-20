@@ -17,6 +17,7 @@
   <script src="min/vue.min.js"></script>
   <script src="min/vue-router.min.js"></script>
   <script src="min/vuetify.min.js"></script>
+  <script src="min/lang.min.js"></script>
 
   <div id="app">
     <v-app id="inspire">
@@ -119,9 +120,9 @@
   </div>
 
   <script type="module">
-    import lang from './min/lang.min.js'
     import mixins from './min/mixins.min.js'
     import router from './min/router.min.js'
+    lang="es"
     new Vue({
       el: '#app',
       mixins: [mixins],
@@ -135,34 +136,34 @@
             leftList: [
               {
                 icon: "euro_symbol",
-                name: lang.menu.Recibos,
+                name: lang[this.lang].menu.Recibos,
                 to: "/recibos/gestion"
               },
-              {
-                icon: "timeline",
-                name: lang.menu.Polizas,
-                to: "/polizas/altas"
-              },
-              {
-                icon: "contacts",
-                name: lang.menu.Clientes,
-                to: "/clientes"
-              },
-              {
-                icon: "healing",
-                name: lang.menu.Siniestros,
-                to: "/recibos"
-              },
-              {
-                icon: "person",
-                name: lang.menu.Usuarios,
-                to: "/usuarios"
-              },
-              {
-                icon: "person",
-                name: lang.menu.Registros,
-                to: "/registros"
-              }
+              // {
+              //   icon: "timeline",
+              //   name: lang[this.lang].menu.Polizas,
+              //   to: "/polizas/altas"
+              // },
+              // {
+              //   icon: "contacts",
+              //   name: lang[this.lang].menu.Clientes,
+              //   to: "/clientes"
+              // },
+              // {
+              //   icon: "healing",
+              //   name: lang[this.lang].menu.Siniestros,
+              //   to: "/recibos"
+              // },
+              // {
+              //   icon: "person",
+              //   name: lang[this.lang].menu.Usuarios,
+              //   to: "/usuarios"
+              // },
+              // {
+              //   icon: "person",
+              //   name: lang.menu.Registros,
+              //   to: "/registros"
+              // }
             ]
           },
           user: {
@@ -236,10 +237,15 @@
         }
       },
       beforeMount() {
+        
         if (localStorage.sid) this.checkUser();
         localStorage.url = "http://servidor/lib/php/post.php";
       },
-      created() { }
+      created() { 
+this.lang ="es"
+console.log(lang[this.lang].menu.Recibos)
+        this.lang ="es"
+      }
     });
   </script>
 </body>

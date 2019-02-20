@@ -1,4 +1,4 @@
-export default ({
+const lang = {
   es: {
     // for filter panel
     page: "Página",
@@ -552,5 +552,4 @@ export default ({
     EliminarRegistro: "Vols esborrar aquest registre?",
     CampoObligatorio: "Camp obligatori"
   }
-
-});
+}
