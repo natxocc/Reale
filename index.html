@@ -14,11 +14,6 @@
 </head>
 
 <body>
-  <script src="min/vue.min.js"></script>
-  <script src="min/vue-router.min.js"></script>
-  <script src="min/vuetify.min.js"></script>
-  <script src="min/lang.min.js"></script>
-
   <div id="app">
     <v-app id="inspire">
       <!-- MENU IZQUIERDA -->
@@ -114,15 +109,19 @@
       </v-fab-transition>
       <!-- PIE DE PAGINA -->
       <v-footer app color="primary" dark>
-        <span class="white--text">&copy; Ntx Software v0.1</span>
+        <span class="white--text">&copy; Ntx Software v0.1 {{$lang.menu.Recibos}}</span>
       </v-footer>
     </v-app>
   </div>
-
+  <script src="min/vue.min.js"></script>
+  <script src="min/vue-router.min.js"></script>
+  <script src="min/vuetify.min.js"></script>
+  <script src="min/lang.min.js"></script>
   <script type="module">
     import mixins from './min/mixins.min.js'
     import router from './min/router.min.js'
-    lang="es"
+    Vue.prototype.$loc = loc
+    Vue.prototype.$lang = loc.es
     new Vue({
       el: '#app',
       mixins: [mixins],
@@ -136,7 +135,7 @@
             leftList: [
               {
                 icon: "euro_symbol",
-                name: lang[this.lang].menu.Recibos,
+                name: this.$lang.menu.Recibos,
                 to: "/recibos/gestion"
               },
               // {
@@ -237,14 +236,11 @@
         }
       },
       beforeMount() {
-        
+        this.$lang = this.$loc['ca']
         if (localStorage.sid) this.checkUser();
         localStorage.url = "http://servidor/lib/php/post.php";
       },
-      created() { 
-this.lang ="es"
-console.log(lang[this.lang].menu.Recibos)
-        this.lang ="es"
+      created() {
       }
     });
   </script>

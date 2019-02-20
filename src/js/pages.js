@@ -12,16 +12,16 @@ export const Recibos = ({
   <div class="container">
     <!-- TABS -->
     <q-tabs active-bg-color="primary" active-color="white" class="bg-secondary text-primary" dense indicator-color="transparent" inline-label top-indicator v-model="myRoute">
-      <q-route-tab :label="$q.lang.Gestion" icon="assignment_turned_in" name="gestion" to="/recibos/gestion"/>
-      <q-route-tab :label="$q.lang.BajasPendientes" icon="assignment_returned" name="bajas" to="/recibos/bajas"/>
-      <q-route-tab :label="$q.lang.Liquidacion" icon="credit_card" name="liq" to="/recibos/liq"/>
+      <q-route-tab :label="$lang.Gestion" icon="assignment_turned_in" name="gestion" to="/recibos/gestion"/>
+      <q-route-tab :label="$lang.BajasPendientes" icon="assignment_returned" name="bajas" to="/recibos/bajas"/>
+      <q-route-tab :label="$lang.Liquidacion" icon="credit_card" name="liq" to="/recibos/liq"/>
       <q-tab :label="calculos.importe" class="text-primary" disabled icon="euro_symbol"/>
     </q-tabs>
     <!-- SELECT FILTERS TOTALS-->
     <div>
       <div class="row text-center">
         <div class="col-xs-12 col-md-4" style="padding: 10px">
-          <q-input :label="$q.lang.FiltroRapido" dense type="text" v-model="quickFilter">
+          <q-input :label="$lang.FiltroRapido" dense type="text" v-model="quickFilter">
             <q-icon name="filter_list" slot="prepend"/>
             <q-icon @click="quickFilter = ''" class="cursor-pointer" name="close" slot="append"/>
           </q-input>
@@ -29,50 +29,50 @@ export const Recibos = ({
         <!-- FILTER ONLY GESTION -->
         <template v-if="this.$route.params.recibo=='gestion'">
           <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$q.lang.FiltrosDeEstado" :options="this.$q.lang.estados" @input="callDataGestion" dense expandBesides multiple optionsDense v-model="filter.estadosSel"/>
+            <q-select :label="$lang.FiltrosDeEstado" :options="this.$lang.estados" @input="callDataGestion" dense expandBesides multiple optionsDense v-model="filter.estadosSel"/>
           </div>
           <div class="col-xs-6 col-md-2" style="padding: 10px">
-            <q-select :label="$q.lang.HistorialUsuario" :options="this.$q.lang.userby" @input="callDataGestion" dense expandBesides optionsDense v-model="filter.userby"/>
+            <q-select :label="$lang.HistorialUsuario" :options="this.$lang.userby" @input="callDataGestion" dense expandBesides optionsDense v-model="filter.userby"/>
           </div>
           <div class="col-xs-6 col-md-2" style="padding: 10px">
-            <q-toggle :label="$q.lang.TodosLosRegistros" @input="callDataGestion" dense v-model="filter.alldata">
-              <q-tooltip anchor="top middle" self="bottom middle">{{$q.lang.TodosLosRegistrosT}}</q-tooltip>
+            <q-toggle :label="$lang.TodosLosRegistros" @input="callDataGestion" dense v-model="filter.alldata">
+              <q-tooltip anchor="top middle" self="bottom middle">{{$lang.TodosLosRegistrosT}}</q-tooltip>
             </q-toggle>
           </div>
         </template>
         <!-- FILTER ONLY BAJAS -->
         <template v-else-if="this.$route.params.recibo=='bajas'">
           <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$q.lang.ano" :options="filter.years" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.year"/>
+            <q-select :label="$lang.ano" :options="filter.years" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.year"/>
           </div>
           <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$q.lang.mes" :options="filter.months" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.month"/>
+            <q-select :label="$lang.mes" :options="filter.months" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.month"/>
           </div>
         </template>
         <!-- FILTER ONLY LIQ & CAJA -->
         <template v-else-if="this.$route.params.recibo=='liq'">
           <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$q.lang.ano" :options="filter.years" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.year"/>
+            <q-select :label="$lang.ano" :options="filter.years" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.year"/>
           </div>
           <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$q.lang.semana" :options="filter.weeks" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.week"/>
+            <q-select :label="$lang.semana" :options="filter.weeks" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.week"/>
           </div>
         </template>
       </div>
       <!-- MINI TOOLBAR-->
       <q-bar class="bg-primary text-white">
-        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="!recibo.selected && !recibo.selectedSub">{{$q.lang.NuevoRecibo}}</q-btn>
-        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="recibo.selected">{{$q.lang.NuevaGestion}}</q-btn>
-        <q-btn @click="dialogModel=true" dense flat icon="edit" v-if="recibo.selectedSub">{{$q.lang.EditarGestion}}</q-btn>
-        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selected">{{$q.lang.EliminarRecibo}}</q-btn>
-        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selectedSub">{{$q.lang.EliminarGestion}}</q-btn>
+        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="!recibo.selected && !recibo.selectedSub">{{$lang.NuevoRecibo}}</q-btn>
+        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="recibo.selected">{{$lang.NuevaGestion}}</q-btn>
+        <q-btn @click="dialogModel=true" dense flat icon="edit" v-if="recibo.selectedSub">{{$lang.EditarGestion}}</q-btn>
+        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selected">{{$lang.EliminarRecibo}}</q-btn>
+        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selectedSub">{{$lang.EliminarGestion}}</q-btn>
         <q-space/>
         <!-- COLORS HELP -->
         <div>
           <q-btn color="primary" icon="help_outline" size="sm">
             <q-popup-proxy>
               <q-list dense>
-                <q-item :key="key" :style="{'background-color': helpColors[key]}" v-for="(value, key) in $q.lang.ayuda">
+                <q-item :key="key" :style="{'background-color': helpColors[key]}" v-for="(value, key) in $lang.ayuda">
                   <q-item-section>
                     <q-item-label>{{value}}</q-item-label>
                   </q-item-section>
@@ -101,14 +101,14 @@ export const Recibos = ({
       filter: {
         userby: {
           value: "NombreTomador",
-          label: this.$q.lang.userby[0].label
+          label: this.$lang.userby[0].label
         },
         estadosSel: [{
           value: "PENDIENTE",
-          label: this.$q.lang.estados[0].label
+          label: this.$lang.estados[0].label
         }, {
           value: "DEVUELTO",
-          label: this.$q.lang.estados[1].label
+          label: this.$lang.estados[1].label
         }],
         alldata: false,
         years: [],
@@ -162,7 +162,7 @@ export const Recibos = ({
       let self = this;
       this.$q
         .dialog({
-          message: this.$q.lang.EliminarRegistro,
+          message: this.$lang.EliminarRegistro,
           cancel: true
         })
         .onOk(() => {
@@ -200,9 +200,9 @@ export const Recibos = ({
       }).then(function (response) {
         self.defineDialog(self.columnDefs);
         self.dialogTable = "Recibos";
-        self.dialogFields["Gestion"].options = self.$q.lang.gestion;
+        self.dialogFields["Gestion"].options = self.$lang.gestion;
         self.dialogFields["Gestion"].type = "select";
-        self.dialogFields["Estado"].options = self.$q.lang.estados;
+        self.dialogFields["Estado"].options = self.$lang.estados;
         self.dialogFields["Estado"].type = "select";
       });
     },
@@ -250,10 +250,10 @@ export const Recibos = ({
       } else {
         this.recibo.selected = false;
         this.defineDialog(this.columnDefs, false, "Recibos");
-        this.dialogFields["Estado"].options = this.$q.lang.estados;
+        this.dialogFields["Estado"].options = this.$lang.estados;
         this.dialogFields["Estado"].type = "select";
       }
-      this.dialogFields["Gestion"].options = this.$q.lang.gestion;
+      this.dialogFields["Gestion"].options = this.$lang.gestion;
       this.dialogFields["Gestion"].type = "select";
     },
     // SELECTED SUB ROWS
@@ -262,7 +262,7 @@ export const Recibos = ({
       if (data) {
         this.defineDialog(this.columnDefsSub, data);
         this.recibo.selectedSub = true;
-        this.dialogFields["Gestion"].options = this.$q.lang.gestion;
+        this.dialogFields["Gestion"].options = this.$lang.gestion;
         this.dialogFields["Gestion"].type = "select";
       } else {
         this.recibo.selectedSub = false;
@@ -294,8 +294,6 @@ export const Recibos = ({
     }
   },
   beforeMount() {
-    console.log(this.$route)
-    console.log(this.lang)
     this.init();
   },
   watch: {
@@ -324,7 +322,7 @@ export const Clientes = ({
   template: `<div class="container">
   <div class="row text-center">
     <div class="col-xs-12" style="padding: 10px">
-      <q-input :label="$q.lang.FiltroRapido" dense type="text" v-model="quickFilter">
+      <q-input :label="$lang.FiltroRapido" dense type="text" v-model="quickFilter">
         <q-icon name="filter_list" slot="prepend" />
         <q-icon @click="quickFilter = ''" class="cursor-pointer" name="close" slot="append" />
       </q-input>

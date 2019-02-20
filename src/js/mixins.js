@@ -2,7 +2,6 @@ export default ({
   data() {
     return {
       // local variables
-      lang: "es",
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,
@@ -23,7 +22,7 @@ export default ({
       let self = this;
       // showLoading();
       post.sid = localStorage.sid
-      post.lang = this.$q.lang.db
+      post.lang = this.$lang.db
       return fetch(localStorage.url, {
         method: 'post',
         body: JSON.stringify(post)
@@ -37,13 +36,13 @@ export default ({
         }
         if (response.success == true) {
           self.$q.notify({
-            message: self.$q.lang.DatosGuardados,
+            message: self.$lang.DatosGuardados,
             timeout: 1000,
             color: "positive"
           });
         } else {
           self.$q.notify({
-            message: self.$q.lang.ErrorOperacion,
+            message: self.$lang.ErrorOperacion,
             timeout: 1000,
             color: "negative"
           });
@@ -66,7 +65,7 @@ export default ({
         return true
       } else {
         this.$q.notify({
-          message: this.$q.lang.SinAutorizacion,
+          message: this.$lang.SinAutorizacion,
           icon: "close",
           color: "negative"
         })
@@ -96,7 +95,7 @@ export default ({
             result.fields[fields[i]].type = columns[i].headerClass.autocomplete ? "autocomplete" : "select"
           }
           if (columns[i].headerClass.required) {
-            result.fields[fields[i]].props.rules = [val => !!val || this.$q.lang.CampoObligatorio]
+            result.fields[fields[i]].props.rules = [val => !!val || this.$lang.CampoObligatorio]
           }
         }
         // Values
@@ -159,10 +158,8 @@ export default ({
       return weeks
     },
     getLang(lang) {
-      import(`./lang/${lang}`).then((lang) => {
-        this.$q.lang.set(lang.default);
-      });
-      localStorage.lang = this.lang;
+      this.$lang = $loc[lang]
+      localStorage.lang = lang;
     },
   },
   watch: {
@@ -174,6 +171,8 @@ export default ({
     if (!localStorage.lang) {
       localStorage.lang = "es"
     }
-    this.lang = localStorage.lang;
+    // console.log(this.lang.es)
+    // this.lang = loc
+    // console.log(this.lang)
   }
 })

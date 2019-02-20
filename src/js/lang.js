@@ -1,4 +1,5 @@
-const lang = {
+var loc = {
+  
   es: {
     // for filter panel
     page: "Página",
