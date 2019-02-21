@@ -1,8 +1,6 @@
 const mixins = {
   data() {
     return {
-      // local variables
-      locale: loc.es,
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,
@@ -15,7 +13,6 @@ const mixins = {
       dialogData: {},
       dialogFields: {},
       dialogTable: null
-      // MIXINS FROM VUETIFY
     };
   },
   methods: {
@@ -195,15 +192,17 @@ const mixins = {
     getLang(lang) {
       // this.$lang = this.$loc[lang];
       // localStorage.lang = lang;
-      // console.log(this.$lang)
+      // console.log(this.locale)
+      console.log(lang)
     }
   },
   watch: {
-    lang(lang) {
+    locale(lang) {
       this.getLang(lang);
     }
   },
   beforeMount() {
+    // console.log(lang)
     // this.$lang = this.$loc["es"]
     // if (!localStorage.lang) {
     //   this.lang="es"

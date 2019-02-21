@@ -110,7 +110,7 @@ const Main = {
     <v-container fluid fill-height>
       <v-layout justify-center align-center>
         <v-flex text-xs-center>
-        <v-btn flat @click="locale = loc.ca">hjh</v-btn>
+        <v-btn flat @click="">hjh</v-btn>
           <router-view></router-view>
         </v-flex>
       </v-layout>
@@ -154,13 +154,14 @@ const Main = {
   <!-- PIE DE PAGINA -->
   <v-footer app color="primary" dark>
     <span class="white--text"
-      >&copy; Ntx Software v0.1 {{ locale.menu.Recibos }}</span
+      >&copy; Ntx Software v0.1 {{ menu.leftList.name }}</span
     >
   </v-footer>
 </div>
 `,
   data() {
     return {
+      tt: null,
       picker: new Date().toISOString().substr(0, 10),
       gotop: false,
       menu: {
@@ -169,7 +170,7 @@ const Main = {
         leftList: [
           {
             icon: "euro_symbol",
-            name: loc.es.menu.Recibos,
+            name: jj,
             to: "/recibos/gestion"
           }
           // {
@@ -272,8 +273,10 @@ const Main = {
     }
   },
   beforeMount() {
+    console.log(jj)
     // this.$lang = this.$loc["ca"];
-    console.log(loc.es.menu.Recibos);
+    // console.log(this.$lang[tt]);
+    // console.log(this.$vuetify.t(this.$lang));
     if (localStorage.sid) this.checkUser();
     localStorage.url = "http://servidor/lib/php/post.php";
   },

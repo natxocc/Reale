@@ -1,5 +1,4 @@
 var loc = {
-  
   es: {
     // for filter panel
     page: "Página",
@@ -168,63 +167,90 @@ var loc = {
       Operacion: "Operacion"
     },
     // GESTION
-    gestion: [{
-      value: "PEPE",
-      label: "PENDIENTE (Pendiente)"
-    }, {
-      value: "PEAS",
-      label: "PENDIENTE (Asesoría)"
-    }, {
-      value: "PERJ",
-      label: "PENDIENTE (RJ)"
-    }, {
-      value: "COME",
-      label: "COBRADO (Metálico)"
-    }, {
-      value: "COTA",
-      label: "COBRADO (Tarjeta)"
-    }, {
-      value: "COTR",
-      label: "COBRADO (Transferencia)"
-    }, {
-      value: "COBA",
-      label: "COBRADO (Banco)"
-    }, {
-      value: "ANAJ",
-      label: "ANULADO (Ajuste)"
-    }, {
-      value: "ANBA",
-      label: "ANULADO (Baja)"
-    }],
+    gestion: [
+      {
+        value: "PEPE",
+        label: "PENDIENTE (Pendiente)"
+      },
+      {
+        value: "PEAS",
+        label: "PENDIENTE (Asesoría)"
+      },
+      {
+        value: "PERJ",
+        label: "PENDIENTE (RJ)"
+      },
+      {
+        value: "COME",
+        label: "COBRADO (Metálico)"
+      },
+      {
+        value: "COTA",
+        label: "COBRADO (Tarjeta)"
+      },
+      {
+        value: "COTR",
+        label: "COBRADO (Transferencia)"
+      },
+      {
+        value: "COBA",
+        label: "COBRADO (Banco)"
+      },
+      {
+        value: "ANAJ",
+        label: "ANULADO (Ajuste)"
+      },
+      {
+        value: "ANBA",
+        label: "ANULADO (Baja)"
+      }
+    ],
     // ESTADOS
-    estados: [{
-      value: "PENDIENTE",
-      label: "PENDIENTE"
-    }, {
-      value: "DEVUELTO",
-      label: "DEVUELTO"
-    }, {
-      value: "COBRADO",
-      label: "COBRADO"
-    }, {
-      value: "ANULADO",
-      label: "ANULADO"
-    }, {
-      value: "EMITIDO",
-      label: "EMITIDO"
-    }],
+    estados: [
+      {
+        value: "PENDIENTE",
+        label: "PENDIENTE"
+      },
+      {
+        value: "DEVUELTO",
+        label: "DEVUELTO"
+      },
+      {
+        value: "COBRADO",
+        label: "COBRADO"
+      },
+      {
+        value: "ANULADO",
+        label: "ANULADO"
+      },
+      {
+        value: "EMITIDO",
+        label: "EMITIDO"
+      }
+    ],
     // FILTER BY USER
-    userby: [{
-      value: "NombreTomador",
-      label: "Cliente"
-    }, {
-      value: "CodigoRecibo",
-      label: "Recibo"
-    }, {
-      value: "CodigoPoliza",
-      label: "Poliza"
-    }, ],
-    ayuda: ["Recibos sin tratamiento", "Recibos Pendientes y en curso", "Recibos anulados por Reale u Oficina", "Recibos cobrados por Reale u Oficina", "Recibos Urgentes con más de 25 días sin resolver", "Recibos que tienen un error de gestión"],
+    userby: [
+      {
+        value: "NombreTomador",
+        label: "Cliente"
+      },
+      {
+        value: "CodigoRecibo",
+        label: "Recibo"
+      },
+      {
+        value: "CodigoPoliza",
+        label: "Poliza"
+      }
+    ],
+    ayuda: [
+      "Recibos sin tratamiento",
+      "Recibos Pendientes y en curso",
+      "Recibos anulados por Reale u Oficina",
+      "Recibos cobrados por Reale u Oficina",
+      "Recibos Urgentes con más de 25 días sin resolver",
+      "Recibos que tienen un error de gestión"
+    ],
     // PAGINA PRINCIPAL
     InicioSesion: "Inicio de sesión",
     Usuario: "Usuario",
@@ -432,7 +458,8 @@ var loc = {
       Operacion: "Operació"
     },
     // GESTIO
-    gestion: [{
+    gestion: [
+      {
         value: "PEPE",
         label: "PENDENT (Pendent)"
       },
@@ -470,7 +497,8 @@ var loc = {
       }
     ],
     // FILTER BY USER
-    userby: [{
+    userby: [
+      {
         value: "NombreTomador",
         label: "Client"
       },
@@ -481,10 +509,11 @@ var loc = {
       {
         value: "CodigoPoliza",
         label: "Pòlissa"
-      },
+      }
     ],
     // ESTADOS
-    estados: [{
+    estados: [
+      {
         value: "PENDIENTE",
         label: "PENDENT"
       },
@@ -553,4 +582,4 @@ var loc = {
     EliminarRegistro: "Vols esborrar aquest registre?",
     CampoObligatorio: "Camp obligatori"
   }
-}
+};

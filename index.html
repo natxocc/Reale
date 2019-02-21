@@ -39,8 +39,7 @@
     <script src="lib/js/router.min.js"></script>
     <script type="module">
       Vue.prototype.$lang = loc;
-      if (!localStorage.lang) localStorage.lang="es"
-      Vue.component("app-main", Main)
+      Vue.component("app-main", Main);
       new Vue({
         el: "#app",
         mixins: [mixins],
