@@ -1,155 +1,164 @@
 const Main = {
   name: "Main",
-  mixins:[mixins],
-  template: `<div>
-  <!-- MENU IZQUIERDA -->
-  <v-navigation-drawer v-model="menu.left" fixed app disable-resize-watcher>
-    <template>
-      <v-card>
-        <v-card-actions>
-          <v-btn flat color="primary" to="/">Agencia Reale Valls</v-btn>
-        </v-card-actions>
-      </v-card>
-    </template>
-    <template>
-      <v-expansion-panel>
-        <v-expansion-panel-content v-for="(option,i) in menu.options" :key="i">
-          <div slot="header">
-            <v-icon>{{ option.icon }}</v-icon>
-            {{ option.name }}
-          </div>
-          <v-list>
-            <v-list-tile v-for="(sub,i) in option.subs" :to="sub.to" :key="i">
-              <v-list-tile-action></v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ sub.name }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </template>
-  </v-navigation-drawer>
-  <!-- TOOLBAR -->
-  <v-toolbar
-    color="primary"
-    dark
-    fixed
-    app
-    :scroll-threshold="200"
-    scroll-off-screen
-  >
-    <v-toolbar-side-icon
-      @click.stop="menu.left = !menu.left"
-      color="secondary"
-      flat
-    ></v-toolbar-side-icon>
-    <v-toolbar-title>CRC Reale Valls</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <!-- BOTON USUARIO -->
-    <div v-if="user.logged">
-      <v-menu bottom origin="top right" transition="scale-transition">
-        <v-btn flat icon slot="activator" color="secondary">
-          <v-icon>person</v-icon>
-        </v-btn>
-        <v-layout align-baseline class="pa-2" style="background: white">
-          <v-flex text-xs-center>
-            <v-list>
-              <v-btn block @click="user.logged=false">Cerrar Sesion</v-btn>
-            </v-list>
-            <v-list>
-              <v-btn block @click="user.logged=false">Mis archivos</v-btn>
-            </v-list>
-          </v-flex>
-        </v-layout>
-      </v-menu>
-    </div>
-    <div v-else>
-      <v-btn flat icon @click="user.dialog=true" color="red">
-        <v-icon>person</v-icon>
-      </v-btn>
-    </div>
-  </v-toolbar>
-  <!-- DIALOGO CONEXION USUARIO -->
-  <v-dialog v-model="user.dialog" @keydown.esc="user.dialog=false">
-    <v-card>
-      <v-card-title class="headline secondary" primary-title
-        >Inicio de sesión</v-card-title
+  mixins: [mixins],
+  template: 
+`
+    <div>
+      <!-- MENU IZQUIERDA -->
+      <v-navigation-drawer v-model="menu.left" fixed app disable-resize-watcher>
+        <template>
+          <v-card>
+            <v-card-actions>
+              <v-btn flat color="primary" to="/">Agencia Reale Valls</v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+        <template>
+          <v-expansion-panel>
+            <v-expansion-panel-content
+              v-for="(option,i) in menu.options"
+              :key="i"
+            >
+              <div slot="header">
+                <v-icon>{{ option.icon }}</v-icon>
+                {{ option.name }}
+              </div>
+              <v-list>
+                <v-list-tile
+                  v-for="(sub,i) in option.subs"
+                  :to="sub.to"
+                  :key="i"
+                >
+                  <v-list-tile-action></v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ sub.name }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </template>
+      </v-navigation-drawer>
+      <!-- TOOLBAR -->
+      <v-toolbar
+        color="primary"
+        dark
+        fixed
+        app
+        :scroll-threshold="200"
+        scroll-off-screen
       >
-      <v-card-text>
-        <v-form>
-          <v-text-field
-            v-model="user.name"
-            clearable
-            label="Usuario"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="user.pass"
-            clearable
-            label="Contraseña"
-            required
-            type="password"
-          ></v-text-field>
-        </v-form>
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
+        <v-toolbar-side-icon
+          @click.stop="menu.left = !menu.left"
+          color="secondary"
           flat
-          @click="user.dialog=false; user.logged=!user.logged"
-          >Aceptar</v-btn
+        ></v-toolbar-side-icon>
+        <v-toolbar-title>CRC Reale Valls</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <!-- BOTON USUARIO -->
+        <div v-if="user.logged">
+          <v-menu bottom origin="top right" transition="scale-transition">
+            <v-btn flat icon slot="activator" color="secondary">
+              <v-icon>person</v-icon>
+            </v-btn>
+            <v-layout align-baseline class="pa-2" style="background: white">
+              <v-flex text-xs-center>
+                <v-list>
+                  <v-btn block @click="user.logged=false">Cerrar Sesion</v-btn>
+                </v-list>
+                <v-list>
+                  <v-btn block @click="user.logged=false">Mis archivos</v-btn>
+                </v-list>
+              </v-flex>
+            </v-layout>
+          </v-menu>
+        </div>
+        <div v-else>
+          <v-btn flat icon @click="user.dialog=true" color="red">
+            <v-icon>person</v-icon>
+          </v-btn>
+        </div>
+      </v-toolbar>
+      <!-- DIALOGO CONEXION USUARIO -->
+      <v-dialog v-model="user.dialog" @keydown.esc="user.dialog=false">
+        <v-card>
+          <v-card-title class="headline secondary" primary-title
+            >Inicio de sesión</v-card-title
+          >
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                v-model="user.name"
+                clearable
+                label="Usuario"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="user.pass"
+                clearable
+                label="Contraseña"
+                required
+                type="password"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              flat
+              @click="user.dialog=false; user.logged=!user.logged"
+              >Aceptar</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!-- CONTENIDO Y ROUTER -->
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout justify-center align-center>
+            <v-flex text-xs-center>
+              <v-btn flat @click="getLang('ca')">ca</v-btn>
+              <v-btn flat @click="getLang('es')">es</v-btn>
+              <router-view></router-view>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+      <!-- DATEPICKER -->
+      <v-flex xs12 sm6 class="my-3">
+        <v-date-picker
+          v-model="picker"
+          :first-day-of-week="0"
+          :locale="setLang"
+        ></v-date-picker>
+      </v-flex>
+      <!-- BOTON VOLVER A INICIO -->
+      <v-fab-transition>
+        <v-btn
+          v-scroll="onScroll"
+          v-show="gotop"
+          :style="{bottom: $vuetify.breakpoint.smOnly ? '64px' : '' }"
+          fab
+          dark
+          fixed
+          bottom
+          right
+          color="red"
+          @click="toTop"
         >
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-  <!-- CONTENIDO Y ROUTER -->
-  <v-content>
-    <v-container fluid fill-height>
-      <v-layout justify-center align-center>
-        <v-flex text-xs-center>
-        <v-btn flat @click="getLang('ca')">ca</v-btn>
-        <v-btn flat @click="getLang('es')">es</v-btn>
-          <router-view></router-view>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-content>
-  <!-- DATEPICKER -->
-    <v-flex xs12 sm6 class="my-3">
-      <v-date-picker
-        v-model="picker"
-        :first-day-of-week="0"
-        :locale="setLang"
-      ></v-date-picker>
-    </v-flex>
-  <!-- BOTON VOLVER A INICIO -->
-  <v-fab-transition>
-    <v-btn
-      v-scroll="onScroll"
-      v-show="gotop"
-      :style="{bottom: $vuetify.breakpoint.smOnly ? '64px' : '' }"
-      fab
-      dark
-      fixed
-      bottom
-      right
-      color="red"
-      @click="toTop"
-    >
-      <v-icon>keyboard_arrow_up</v-icon>
-    </v-btn>
-  </v-fab-transition>
-  <!-- PIE DE PAGINA -->
-  <v-footer app color="primary" dark>
-    <span class="white--text"
-      >&copy; Ntx Software v0.1 {{ menu.leftList }}</span
-    >
-  </v-footer>
-</div>
-`,
+          <v-icon>keyboard_arrow_up</v-icon>
+        </v-btn>
+      </v-fab-transition>
+      <!-- PIE DE PAGINA -->
+      <v-footer app color="primary" dark>
+        <span class="white--text"
+          >&copy; Ntx Software v0.1 {{ menu.leftList }}</span
+        >
+      </v-footer>
+    </div>
+  `,
   data() {
     return {
       tt: null,
@@ -233,7 +242,7 @@ const Main = {
     }
   },
   beforeMount() {
-    this.getLang(localStorage.lang)
+    this.getLang(localStorage.lang);
     this.menu.leftList = [
       {
         icon: "euro_symbol",
@@ -265,7 +274,7 @@ const Main = {
         name: this.lang.menu.Registros,
         to: "/registros"
       }
-    ]
+    ];
     // this.$lang = this.$loc["ca"];
     // console.log(this.$lang[tt]);
     // console.log(this.$vuetify.t(this.$lang));
