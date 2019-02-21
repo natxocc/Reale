@@ -1,5 +1,14 @@
-import mixins from './mixins.min.js'
-export const NTables =({
+
+
+
+// TABLES
+
+
+
+
+
+
+const NTables ={
 template: `<div style="text-align: left">
   <ag-grid-vue :animateRows="true" :columnDefs="columnDefs" :columnTypes="columnTypes" :defaultColDef="defaultColDef"
     :detailCellRendererParams="detailCellRendererParams" :enableCellChangeFlash="true" :enableRangeSelection="true"
@@ -185,9 +194,42 @@ template: `<div style="text-align: left">
        deep: true
      }
    }
-});
+};
 
-export const NDialog = ({
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DIALOG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const NDialog = {
   template: `<div>
   <q-dialog :maximized="true" transition-hide="slide-down" transition-show="slide-up" v-model="model">
     <q-card>
@@ -317,4 +359,4 @@ export const NDialog = ({
         if (!this.model) this.options = null;
       }
     }
-});
+};

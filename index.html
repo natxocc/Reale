@@ -1,249 +1,50 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta
+      name="viewport"
+      content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width"
+    />
+    <title>CRC Reale</title>
+    <link href="lib/css/icons.min.css" rel="stylesheet" />
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <link href="lib/css/vuetify.min.css" rel="stylesheet" type="text/css" />
+    <link href="lib/css/css.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
-  <title>CRC Reale</title>
-  <link href="min/icons.min.css" rel="stylesheet">
-  <link rel="icon" href="favicon.png" type="image/x-icon">
-  <link href="min/vuetify.min.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-  <div id="app">
-    <v-app id="inspire">
-      <!-- MENU IZQUIERDA -->
-      <v-navigation-drawer v-model="menu.left" fixed app>
-        <template>
-          <v-card>
-            <v-card-actions>
-              <v-btn flat color="primary" to="/">Agencia Reale Valls</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-        <template>
-          <v-expansion-panel>
-            <v-expansion-panel-content v-for="(option,i) in menu.options" :key="i">
-              <div slot="header">
-                <v-icon>{{option.icon}}</v-icon>
-                {{option.name}}
-              </div>
-              <v-list>
-                <v-list-tile v-for="(sub,i) in option.subs" :to="sub.to" :key="i">
-                  <v-list-tile-action></v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{sub.name}}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </template>
-      </v-navigation-drawer>
-      <!-- TOOLBAR -->
-      <v-toolbar color="primary" dark fixed app :scroll-threshold="200" scroll-off-screen>
-        <v-toolbar-side-icon @click.stop="menu.left = !menu.left" color="secondary" flat></v-toolbar-side-icon>
-        <v-toolbar-title>CRC Reale Valls</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <!-- BOTON USUARIO -->
-        <div v-if="user.logged">
-          <v-menu bottom origin="top right" transition="scale-transition">
-            <v-btn flat icon slot="activator" color="secondary">
-              <v-icon>person</v-icon>
-            </v-btn>
-            <v-layout align-baseline class="pa-2" style="background: white">
-              <v-flex text-xs-center>
-                <v-list>
-                  <v-btn block @click="user.logged=false">Cerrar Sesion</v-btn>
-                </v-list>
-                <v-list>
-                  <v-btn block @click="user.logged=false">Mis archivos</v-btn>
-                </v-list>
-              </v-flex>
-            </v-layout>
-          </v-menu>
-        </div>
-        <div v-else>
-          <v-btn flat icon @click="user.dialog=true" color="red">
-            <v-icon>person</v-icon>
-          </v-btn>
-        </div>
-      </v-toolbar>
-      <!-- DIALOGO CONEXION USUARIO -->
-      <v-dialog v-model="user.dialog" @keydown.esc="user.dialog=false">
-        <v-card>
-          <v-card-title class="headline secondary" primary-title>Inicio de sesión</v-card-title>
-          <v-card-text>
-            <v-form>
-              <v-text-field v-model="user.name" clearable label="Usuario" required></v-text-field>
-              <v-text-field v-model="user.pass" clearable label="Contraseña" required type="password"></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click="user.dialog=false; user.logged=!user.logged">Aceptar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <!-- CONTENIDO Y ROUTER -->
-      <v-content>
-        <v-container fluid fill-height>
-          <v-layout justify-center align-center>
-            <v-flex text-xs-center>
-              <router-view></router-view>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-content>
-      <!-- BOTON VOLVER A INICIO -->
-      <v-fab-transition>
-        <v-btn v-scroll="onScroll" v-show="gotop" :style="{bottom: $vuetify.breakpoint.smOnly ? '64px' : '' }" fab dark
-          fixed bottom right color="red" @click="toTop">
-          <v-icon>keyboard_arrow_up</v-icon>
-        </v-btn>
-      </v-fab-transition>
-      <!-- PIE DE PAGINA -->
-      <v-footer app color="primary" dark>
-        <span class="white--text">&copy; Ntx Software v0.1 {{$lang.menu.Recibos}}</span>
-      </v-footer>
-    </v-app>
-  </div>
-  <script src="min/vue.min.js"></script>
-  <script src="min/vue-router.min.js"></script>
-  <script src="min/vuetify.min.js"></script>
-  <script src="min/lang.min.js"></script>
-  <script type="module">
-    import mixins from './min/mixins.min.js'
-    import router from './min/router.min.js'
-    Vue.prototype.$loc = loc
-    Vue.prototype.$lang = loc.es
-    new Vue({
-      el: '#app',
-      mixins: [mixins],
-      router,
-      data() {
-        return {
-          gotop: false,
-          menu: {
-            left: false,
-            right: false,
-            leftList: [
-              {
-                icon: "euro_symbol",
-                name: this.$lang.menu.Recibos,
-                to: "/recibos/gestion"
-              },
-              // {
-              //   icon: "timeline",
-              //   name: lang[this.lang].menu.Polizas,
-              //   to: "/polizas/altas"
-              // },
-              // {
-              //   icon: "contacts",
-              //   name: lang[this.lang].menu.Clientes,
-              //   to: "/clientes"
-              // },
-              // {
-              //   icon: "healing",
-              //   name: lang[this.lang].menu.Siniestros,
-              //   to: "/recibos"
-              // },
-              // {
-              //   icon: "person",
-              //   name: lang[this.lang].menu.Usuarios,
-              //   to: "/usuarios"
-              // },
-              // {
-              //   icon: "person",
-              //   name: lang.menu.Registros,
-              //   to: "/registros"
-              // }
-            ]
-          },
-          user: {
-            user: null,
-            pass: null,
-            name: null,
-            mail: null,
-            passShow: false,
-            dialog: false
-          }
-        };
-      },
-      methods: {
-        onScroll() {
-          // if (typeof window === "undefined") return;
-          const top = window.pageYOffset || document.documentElement.offsetTop || 0;
-          this.gotop = top > 200;
-        },
-        toTop() {
-          this.$router.push({ hash: "" });
-          this.$vuetify.goTo(0);
-        },
-        login() {
-          let self = this;
-          this.callData({ cmd: "login", user: self.user.user, pass: self.user.pass })
-            .then(function (response) {
-              if (response.success) {
-                localStorage.sid = response.sid;
-                localStorage.mail = response.info.data.email;
-                localStorage.username = response.info.data.fullname
-              } else {
-                self.logout();
-              }
-            })
-            .catch(function (response) {
-            });
-          this.user.dialog = false;
-        },
-        logout() {
-          let self = this;
-          this.callData({ cmd: "logout" });
-          localStorage.removeItem("sid");
-          localStorage.removeItem("mail");
-          localStorage.removeItem("username");
-          self.user.name = localStorage.username;
-          self.user.mail = localStorage.mail;
-          this.menu.left = false;
-          this.menu.right = false;
-        },
-        checkUser() {
-          let self = this;
-          this.callData({ cmd: "checkUser" })
-            .then(function (response) {
-              if (response.success) {
-                self.user.name = localStorage.username;
-                self.user.mail = localStorage.mail;
-              } else {
-                self.logout();
-              }
-            })
-        },
-        menuUser() {
-          if (localStorage.sid) {
-            this.menu.right = !this.menu.right;
-          } else {
-            this.user.dialog = true;
-          }
-        },
-        sendBug() {
-          window.open("https://github.com/natxocc/CRC/issues", "_system");
-        }
-      },
-      beforeMount() {
-        this.$lang = this.$loc['ca']
-        if (localStorage.sid) this.checkUser();
-        localStorage.url = "http://servidor/lib/php/post.php";
-      },
-      created() {
-      }
-    });
-  </script>
-</body>
-
+  <body>
+    <div id="app">
+      <v-app id="inspire" v-cloak>
+        <app-main></app-main>
+      </v-app>
+    </div>
+    <script src="lib/js/vuedev.min.js"></script>
+    <script src="lib/js/vue-router.min.js"></script>
+    <script src="lib/js/vuetify.min.js"></script>
+    <script src="lib/js/aggrid.min.js"></script>
+    <script src="lib/js/aggridvue.min.js"></script>
+    <script src="lib/js/mixins.min.js"></script>
+    <script src="lib/js/components.min.js"></script>
+    <script src="lib/js/lang.min.js"></script>
+    <script src="lib/js/pages.min.js"></script>
+    <script src="lib/js/router.min.js"></script>
+    <script type="module">
+      // Vue.prototype.$lang = loc.es;
+      Vue.component("app-main", Main)
+      new Vue({
+        el: "#app",
+        mixins: [mixins],
+        router
+      });
+    </script>
+  </body>
 </html>

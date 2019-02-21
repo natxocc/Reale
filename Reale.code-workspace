@@ -20,5 +20,7 @@
 		"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
 		"breadcrumbs.enabled": true,
 		"es6-css-minify.minifyOnSave": "yes",
+		"es6-css-minify.cssMinPath": "/lib/css",
+		"es6-css-minify.jsMinPath": "/lib/js",
 	}
 }
