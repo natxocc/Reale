@@ -1,6 +1,7 @@
 const mixins = {
   data() {
     return {
+      lang: "es",
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,

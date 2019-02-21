@@ -110,7 +110,7 @@ const Main = {
     <v-container fluid fill-height>
       <v-layout justify-center align-center>
         <v-flex text-xs-center>
-        <v-btn flat @click="">hjh</v-btn>
+        <v-btn flat @click="pp()">hjh</v-btn>
           <router-view></router-view>
         </v-flex>
       </v-layout>
@@ -154,7 +154,7 @@ const Main = {
   <!-- PIE DE PAGINA -->
   <v-footer app color="primary" dark>
     <span class="white--text"
-      >&copy; Ntx Software v0.1 {{ menu.leftList.name }}</span
+      >&copy; Ntx Software v0.1 {{ $lang.menu.Recibos }}</span
     >
   </v-footer>
 </div>
@@ -167,38 +167,7 @@ const Main = {
       menu: {
         left: false,
         right: false,
-        leftList: [
-          {
-            icon: "euro_symbol",
-            name: jj,
-            to: "/recibos/gestion"
-          }
-          // {
-          //   icon: "timeline",
-          //   name: lang[this.lang].menu.Polizas,
-          //   to: "/polizas/altas"
-          // },
-          // {
-          //   icon: "contacts",
-          //   name: lang[this.lang].menu.Clientes,
-          //   to: "/clientes"
-          // },
-          // {
-          //   icon: "healing",
-          //   name: lang[this.lang].menu.Siniestros,
-          //   to: "/recibos"
-          // },
-          // {
-          //   icon: "person",
-          //   name: lang[this.lang].menu.Usuarios,
-          //   to: "/usuarios"
-          // },
-          // {
-          //   icon: "person",
-          //   name: lang.menu.Registros,
-          //   to: "/registros"
-          // }
-        ]
+        leftList: null
       },
       user: {
         user: null,
@@ -270,10 +239,46 @@ const Main = {
     },
     sendBug() {
       window.open("https://github.com/natxocc/CRC/issues", "_system");
-    }
+    },
+    pp () {
+      this.$lang = loc['ca']
+      console.log(this.$lang)
+    },
   },
   beforeMount() {
-    console.log(jj)
+    console.log(this.$lang.menu.Recibos)
+    this.menu.leftList = [
+      {
+        icon: "euro_symbol",
+        name: this.$lang.menu.Recibos,
+        to: "/recibos/gestion"
+      }
+      // {
+      //   icon: "timeline",
+      //   name: lang[this.lang].menu.Polizas,
+      //   to: "/polizas/altas"
+      // },
+      // {
+      //   icon: "contacts",
+      //   name: lang[this.lang].menu.Clientes,
+      //   to: "/clientes"
+      // },
+      // {
+      //   icon: "healing",
+      //   name: lang[this.lang].menu.Siniestros,
+      //   to: "/recibos"
+      // },
+      // {
+      //   icon: "person",
+      //   name: lang[this.lang].menu.Usuarios,
+      //   to: "/usuarios"
+      // },
+      // {
+      //   icon: "person",
+      //   name: lang.menu.Registros,
+      //   to: "/registros"
+      // }
+    ]
     // this.$lang = this.$loc["ca"];
     // console.log(this.$lang[tt]);
     // console.log(this.$vuetify.t(this.$lang));
