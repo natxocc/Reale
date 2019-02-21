@@ -1,7 +1,8 @@
 const mixins = {
   data() {
     return {
-      lang: "es",
+      lang: null,
+      setLang: localStorage.lang,
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,
@@ -21,7 +22,7 @@ const mixins = {
       let self = this;
       // showLoading();
       post.sid = localStorage.sid;
-      post.lang = this.$lang.db;
+      post.lang = lang.db;
       return fetch(localStorage.url, {
         method: "post",
         body: JSON.stringify(post)
@@ -66,7 +67,7 @@ const mixins = {
         return true;
       } else {
         this.$q.notify({
-          message: this.$lang.SinAutorizacion,
+          message: lang.SinAutorizacion,
           icon: "close",
           color: "negative"
         });
@@ -112,7 +113,7 @@ const mixins = {
           }
           if (columns[i].headerClass.required) {
             result.fields[fields[i]].props.rules = [
-              val => !!val || this.$lang.CampoObligatorio
+              val => !!val || lang.CampoObligatorio
             ];
           }
         }
@@ -191,25 +192,13 @@ const mixins = {
       return weeks;
     },
     getLang(lang) {
-      // this.$lang = this.$loc[lang];
-      // localStorage.lang = lang;
-      // console.log(this.locale)
-      console.log(lang)
-    }
-  },
-  watch: {
-    locale(lang) {
-      this.getLang(lang);
+      if (!localStorage.lang || !lang) lang = "es";
+      this.lang = this.$lang[lang];
+      localStorage.lang = lang;
+      if (this.setLang !=lang) location.reload()
     }
   },
   beforeMount() {
-    // console.log(lang)
-    // this.$lang = this.$loc["es"]
-    // if (!localStorage.lang) {
-    //   this.lang="es"
-    // } else {
-    //   this.lang = localStorage.lang
-    // }
     // Colors VUETIFY
     this.$vuetify.theme = {
       primary: "#004B9B",

@@ -110,30 +110,21 @@ const Main = {
     <v-container fluid fill-height>
       <v-layout justify-center align-center>
         <v-flex text-xs-center>
-        <v-btn flat @click="pp()">hjh</v-btn>
+        <v-btn flat @click="getLang('ca')">ca</v-btn>
+        <v-btn flat @click="getLang('es')">es</v-btn>
           <router-view></router-view>
         </v-flex>
       </v-layout>
     </v-container>
   </v-content>
-
-
+  <!-- DATEPICKER -->
     <v-flex xs12 sm6 class="my-3">
       <v-date-picker
         v-model="picker"
         :first-day-of-week="0"
-        locale="es"
+        :locale="setLang"
       ></v-date-picker>
     </v-flex>
-    <v-flex xs12 sm6 class="my-3">
-      <v-date-picker
-        v-model="picker"
-        :first-day-of-week="1"
-        locale="ca"
-      ></v-date-picker>
-      
-    </v-flex>
-
   <!-- BOTON VOLVER A INICIO -->
   <v-fab-transition>
     <v-btn
@@ -154,7 +145,7 @@ const Main = {
   <!-- PIE DE PAGINA -->
   <v-footer app color="primary" dark>
     <span class="white--text"
-      >&copy; Ntx Software v0.1 {{ $lang.menu.Recibos }}</span
+      >&copy; Ntx Software v0.1 {{ menu.leftList }}</span
     >
   </v-footer>
 </div>
@@ -239,45 +230,41 @@ const Main = {
     },
     sendBug() {
       window.open("https://github.com/natxocc/CRC/issues", "_system");
-    },
-    pp () {
-      this.$lang = loc['ca']
-      console.log(this.$lang)
-    },
+    }
   },
   beforeMount() {
-    console.log(this.$lang.menu.Recibos)
+    this.getLang(localStorage.lang)
     this.menu.leftList = [
       {
         icon: "euro_symbol",
-        name: this.$lang.menu.Recibos,
+        name: this.lang.menu.Recibos,
         to: "/recibos/gestion"
+      },
+      {
+        icon: "timeline",
+        name: this.lang.menu.Polizas,
+        to: "/polizas/altas"
+      },
+      {
+        icon: "contacts",
+        name: this.lang.menu.Clientes,
+        to: "/clientes"
+      },
+      {
+        icon: "healing",
+        name: this.lang.menu.Siniestros,
+        to: "/recibos"
+      },
+      {
+        icon: "person",
+        name: this.lang.menu.Usuarios,
+        to: "/usuarios"
+      },
+      {
+        icon: "person",
+        name: this.lang.menu.Registros,
+        to: "/registros"
       }
-      // {
-      //   icon: "timeline",
-      //   name: lang[this.lang].menu.Polizas,
-      //   to: "/polizas/altas"
-      // },
-      // {
-      //   icon: "contacts",
-      //   name: lang[this.lang].menu.Clientes,
-      //   to: "/clientes"
-      // },
-      // {
-      //   icon: "healing",
-      //   name: lang[this.lang].menu.Siniestros,
-      //   to: "/recibos"
-      // },
-      // {
-      //   icon: "person",
-      //   name: lang[this.lang].menu.Usuarios,
-      //   to: "/usuarios"
-      // },
-      // {
-      //   icon: "person",
-      //   name: lang.menu.Registros,
-      //   to: "/registros"
-      // }
     ]
     // this.$lang = this.$loc["ca"];
     // console.log(this.$lang[tt]);
