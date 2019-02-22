@@ -2,7 +2,7 @@ const mixins = {
   data() {
     return {
       lang: null,
-      setLang: localStorage.lang,
+      locale: localStorage.lang,
       columnDefs: null,
       columnDefsSub: null,
       rowData: null,
@@ -194,8 +194,10 @@ const mixins = {
     getLang(lang) {
       if (!localStorage.lang || !lang) lang = "es";
       this.lang = this.$lang[lang];
-      localStorage.lang = lang;
-      if (this.setLang !=lang) location.reload()
+      if (localStorage.lang !=lang) {
+        localStorage.lang = lang;
+        location.reload()
+      }
     }
   },
   beforeMount() {

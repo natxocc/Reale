@@ -121,6 +121,7 @@ const Main = {
             <v-flex text-xs-center>
               <v-btn flat @click="getLang('ca')">ca</v-btn>
               <v-btn flat @click="getLang('es')">es</v-btn>
+              <v-btn flat @click="remove">es</v-btn>
               <router-view></router-view>
             </v-flex>
           </v-layout>
@@ -131,7 +132,7 @@ const Main = {
         <v-date-picker
           v-model="picker"
           :first-day-of-week="0"
-          :locale="setLang"
+          :locale="locale"
         ></v-date-picker>
       </v-flex>
       <!-- BOTON VOLVER A INICIO -->
@@ -161,7 +162,6 @@ const Main = {
   `,
   data() {
     return {
-      tt: null,
       picker: new Date().toISOString().substr(0, 10),
       gotop: false,
       menu: {
@@ -239,6 +239,9 @@ const Main = {
     },
     sendBug() {
       window.open("https://github.com/natxocc/CRC/issues", "_system");
+    },
+    remove(){
+      localStorage.removeItem("lang")
     }
   },
   beforeMount() {
