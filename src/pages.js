@@ -1,163 +1,154 @@
+const LeftDrawer = /* HTML */ `
+  <div>
+    <v-navigation-drawer v-model="menu.left" fixed app disable-resize-watcher>
+      <template>
+        <v-card>
+          <v-card-actions>
+            <v-btn flat color="primary" to="/">Agencia Reale Valls</v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+      <template>
+        <v-expansion-panel>
+          <v-expansion-panel-content
+            v-for="(option,i) in menu.options"
+            :key="i"
+          >
+            <div slot="header">
+              <v-icon>{{ option.icon }}</v-icon>
+              {{ option.name }}
+            </div>
+            <v-list>
+              <v-list-tile v-for="(sub,i) in option.subs" :to="sub.to" :key="i">
+                <v-list-tile-action></v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ sub.name }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </template>
+    </v-navigation-drawer>
+  </div>
+`;
+const ToolBar = /* HTML */ `
+  <v-toolbar
+    color="primary"
+    dark
+    fixed
+    app
+    :scroll-threshold="200"
+    scroll-off-screen
+  >
+    <v-toolbar-side-icon
+      @click.stop="menu.left = !menu.left"
+      color="secondary"
+      flat
+    ></v-toolbar-side-icon>
+    <v-toolbar-title>CRC Reale Valls</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <!-- BOTON USUARIO -->
+    <div v-if="user.logged">
+      <v-menu bottom origin="top right" transition="scale-transition">
+        <v-btn flat icon slot="activator" color="secondary">
+          <v-icon>person</v-icon>
+        </v-btn>
+        <v-layout align-baseline class="pa-2" style="background: white">
+          <v-flex text-xs-center>
+            <v-list>
+              <v-btn block @click="user.logged=false">Cerrar Sesion</v-btn>
+            </v-list>
+            <v-list>
+              <v-btn block @click="user.logged=false">Mis archivos</v-btn>
+            </v-list>
+          </v-flex>
+        </v-layout>
+      </v-menu>
+    </div>
+    <div v-else>
+      <v-btn flat icon @click="user.dialog=true" color="red">
+        <v-icon>person</v-icon>
+      </v-btn>
+    </div>
+  </v-toolbar>
+`;
+const UserLogin = /* HTML */ `
+  <v-dialog v-model="user.dialog" @keydown.esc="user.dialog=false">
+    <v-card>
+      <v-card-title class="headline secondary" primary-title
+        >Inicio de sesión</v-card-title
+      >
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            v-model="user.name"
+            clearable
+            label="Usuario"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="user.pass"
+            clearable
+            label="Contraseña"
+            required
+            type="password"
+          ></v-text-field>
+        </v-form>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="primary"
+          flat
+          @click="user.dialog=false; user.logged=!user.logged"
+          >Aceptar</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+`;
+const GoTop = /* HTML */ `
+  <v-fab-transition>
+    <v-btn
+      v-scroll="onScroll"
+      v-show="gotop"
+      :style="{bottom: $vuetify.breakpoint.smOnly ? '64px' : '' }"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="red"
+      @click="toTop"
+    >
+      <v-icon>keyboard_arrow_up</v-icon>
+    </v-btn>
+  </v-fab-transition>
+`;
+const Footer = /* HTML */ `
+  <v-footer app color="primary" dark>
+    <span class="white--text"
+      >&copy; Ntx Software v0.1 {{ menu.leftList }}</span
+    >
+  </v-footer>
+`;
 const Main = {
   name: "Main",
   mixins: [mixins],
-  template: 
-`
+  template: /* HTML */ `
     <div>
-      <!-- MENU IZQUIERDA -->
-      <v-navigation-drawer v-model="menu.left" fixed app disable-resize-watcher>
-        <template>
-          <v-card>
-            <v-card-actions>
-              <v-btn flat color="primary" to="/">Agencia Reale Valls</v-btn>
-            </v-card-actions>
-          </v-card>
-        </template>
-        <template>
-          <v-expansion-panel>
-            <v-expansion-panel-content
-              v-for="(option,i) in menu.options"
-              :key="i"
-            >
-              <div slot="header">
-                <v-icon>{{ option.icon }}</v-icon>
-                {{ option.name }}
-              </div>
-              <v-list>
-                <v-list-tile
-                  v-for="(sub,i) in option.subs"
-                  :to="sub.to"
-                  :key="i"
-                >
-                  <v-list-tile-action></v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ sub.name }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </template>
-      </v-navigation-drawer>
-      <!-- TOOLBAR -->
-      <v-toolbar
-        color="primary"
-        dark
-        fixed
-        app
-        :scroll-threshold="200"
-        scroll-off-screen
-      >
-        <v-toolbar-side-icon
-          @click.stop="menu.left = !menu.left"
-          color="secondary"
-          flat
-        ></v-toolbar-side-icon>
-        <v-toolbar-title>CRC Reale Valls</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <!-- BOTON USUARIO -->
-        <div v-if="user.logged">
-          <v-menu bottom origin="top right" transition="scale-transition">
-            <v-btn flat icon slot="activator" color="secondary">
-              <v-icon>person</v-icon>
-            </v-btn>
-            <v-layout align-baseline class="pa-2" style="background: white">
-              <v-flex text-xs-center>
-                <v-list>
-                  <v-btn block @click="user.logged=false">Cerrar Sesion</v-btn>
-                </v-list>
-                <v-list>
-                  <v-btn block @click="user.logged=false">Mis archivos</v-btn>
-                </v-list>
-              </v-flex>
-            </v-layout>
-          </v-menu>
-        </div>
-        <div v-else>
-          <v-btn flat icon @click="user.dialog=true" color="red">
-            <v-icon>person</v-icon>
-          </v-btn>
-        </div>
-      </v-toolbar>
-      <!-- DIALOGO CONEXION USUARIO -->
-      <v-dialog v-model="user.dialog" @keydown.esc="user.dialog=false">
-        <v-card>
-          <v-card-title class="headline secondary" primary-title
-            >Inicio de sesión</v-card-title
-          >
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                v-model="user.name"
-                clearable
-                label="Usuario"
-                required
-              ></v-text-field>
-              <v-text-field
-                v-model="user.pass"
-                clearable
-                label="Contraseña"
-                required
-                type="password"
-              ></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              flat
-              @click="user.dialog=false; user.logged=!user.logged"
-              >Aceptar</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <!-- CONTENIDO Y ROUTER -->
+      ${LeftDrawer} ${ToolBar} ${UserLogin} ${GoTop} ${Footer}
       <v-content>
         <v-container fluid fill-height>
           <v-layout justify-center align-center>
             <v-flex text-xs-center>
-              <v-btn flat @click="getLang('ca')">ca</v-btn>
-              <v-btn flat @click="getLang('es')">es</v-btn>
-              <v-btn flat @click="remove">es</v-btn>
               <router-view></router-view>
             </v-flex>
           </v-layout>
         </v-container>
       </v-content>
-      <!-- DATEPICKER -->
-      <v-flex xs12 sm6 class="my-3">
-        <v-date-picker
-          v-model="picker"
-          :first-day-of-week="0"
-          :locale="locale"
-        ></v-date-picker>
-      </v-flex>
-      <!-- BOTON VOLVER A INICIO -->
-      <v-fab-transition>
-        <v-btn
-          v-scroll="onScroll"
-          v-show="gotop"
-          :style="{bottom: $vuetify.breakpoint.smOnly ? '64px' : '' }"
-          fab
-          dark
-          fixed
-          bottom
-          right
-          color="red"
-          @click="toTop"
-        >
-          <v-icon>keyboard_arrow_up</v-icon>
-        </v-btn>
-      </v-fab-transition>
-      <!-- PIE DE PAGINA -->
-      <v-footer app color="primary" dark>
-        <span class="white--text"
-          >&copy; Ntx Software v0.1 {{ menu.leftList }}</span
-        >
-      </v-footer>
     </div>
   `,
   data() {
@@ -240,8 +231,8 @@ const Main = {
     sendBug() {
       window.open("https://github.com/natxocc/CRC/issues", "_system");
     },
-    remove(){
-      localStorage.removeItem("lang")
+    remove() {
+      localStorage.removeItem("lang");
     }
   },
   beforeMount() {
@@ -287,100 +278,238 @@ const Main = {
   created() {}
 };
 const Home = {
+  components: {
+    DataTable
+  },
   name: "home",
-  template: `<div>
-  <button></button>
-</div>`
+  template: /* HTML */ `
+    <div></div>
+  `
 };
 const Recibos = {
-  name: "Recibos",
-  template: `
-  <div class="container">
-    <!-- TABS -->
- <q-tabs active-bg-color="primary" active-color="white" class="bg-secondary text-primary" dense indicator-color="transparent" inline-label top-indicator v-model="myRoute">
-      <q-route-tab :label="$lang.Gestion" icon="assignment_turned_in" name="gestion" to="/recibos/gestion"/>
-      <q-route-tab :label="$lang.BajasPendientes" icon="assignment_returned" name="bajas" to="/recibos/bajas"/>
-      <q-route-tab :label="$lang.Liquidacion" icon="credit_card" name="liq" to="/recibos/liq"/>
-      <q-tab :label="calculos.importe" class="text-primary" disabled icon="euro_symbol"/>
-    </q-tabs>
-    <!-- SELECT FILTERS TOTALS-->
-    <div>
-      <div class="row text-center">
-        <div class="col-xs-12 col-md-4" style="padding: 10px">
-          <q-input :label="$lang.FiltroRapido" dense type="text" v-model="quickFilter">
-            <q-icon name="filter_list" slot="prepend"/>
-            <q-icon @click="quickFilter = ''" class="cursor-pointer" name="close" slot="append"/>
-          </q-input>
-        </div>
-        <!-- FILTER ONLY GESTION -->
-        <template v-if="this.$route.params.recibo=='gestion'">
-          <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$lang.FiltrosDeEstado" :options="this.$lang.estados" @input="callDataGestion" dense expandBesides multiple optionsDense v-model="filter.estadosSel"/>
-          </div>
-          <div class="col-xs-6 col-md-2" style="padding: 10px">
-            <q-select :label="$lang.HistorialUsuario" :options="this.$lang.userby" @input="callDataGestion" dense expandBesides optionsDense v-model="filter.userby"/>
-          </div>
-          <div class="col-xs-6 col-md-2" style="padding: 10px">
-            <q-toggle :label="$lang.TodosLosRegistros" @input="callDataGestion" dense v-model="filter.alldata">
-              <q-tooltip anchor="top middle" self="bottom middle">{{$lang.TodosLosRegistrosT}}</q-tooltip>
-            </q-toggle>
-          </div>
-        </template>
-        <!-- FILTER ONLY BAJAS -->
-        <template v-else-if="this.$route.params.recibo=='bajas'">
-          <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$lang.ano" :options="filter.years" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.year"/>
-          </div>
-          <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$lang.mes" :options="filter.months" @input="callDataBajas" dense expandBesides optionsDense v-model="filter.month"/>
-          </div>
-        </template>
-        <!-- FILTER ONLY LIQ & CAJA -->
-        <template v-else-if="this.$route.params.recibo=='liq'">
-          <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$lang.ano" :options="filter.years" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.year"/>
-          </div>
-          <div class="col-xs-12 col-md-4" style="padding: 10px">
-            <q-select :label="$lang.semana" :options="filter.weeks" @input="callDataLiq" dense expandBesides optionsDense v-model="filter.week"/>
-          </div>
-        </template>
-      </div>
-      <!-- MINI TOOLBAR-->
-      <q-bar class="bg-primary text-white">
-        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="!recibo.selected && !recibo.selectedSub">{{$lang.NuevoRecibo}}</q-btn>
-        <q-btn @click="dialogModel=true" dense flat icon="add" v-if="recibo.selected">{{$lang.NuevaGestion}}</q-btn>
-        <q-btn @click="dialogModel=true" dense flat icon="edit" v-if="recibo.selectedSub">{{$lang.EditarGestion}}</q-btn>
-        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selected">{{$lang.EliminarRecibo}}</q-btn>
-        <q-btn @click="onDelete" color="warning" dense flat icon="delete" v-if="recibo.selectedSub">{{$lang.EliminarGestion}}</q-btn>
-        <q-space/>
-        <!-- COLORS HELP -->
-        <div>
-          <q-btn color="primary" icon="help_outline" size="sm">
-            <q-popup-proxy>
-              <q-list dense>
-                <q-item :key="key" :style="{'background-color': helpColors[key]}" v-for="(value, key) in $lang.ayuda">
-                  <q-item-section>
-                    <q-item-label>{{value}}</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-popup-proxy>
-          </q-btn>
-        </div>
-      </q-bar>
-    </div>
-    <!-- TABLA DE DATOS -->
-    <!-- <n-tables :columnDefs="columnDefs" :columnDefsSub="columnDefsSub" :filters="filters" :masterDetail="true" :quickFilter="quickFilter" :rowClassRules="rowClassRules" :rowData="rowData" @gridData="gridData" @rowSelected="rowSelected" @rowSelectedSub="rowSelectedSub"/> -->
-    <!-- DIALOGO -->
-    <!-- <n-dialog :data="dialogData" :fields="dialogFields" :model="dialogModel" @cancel="dialogModel=false" @onChange="onChange" @onSave="onSave"></n-dialog> -->
-  </div>
-
-  `,
   components: {
-    NTables
+    DataTable
     // NDialog
   },
   mixins: [mixins],
+  name: "Recibos",
+  template: /* HTML */ `
+    <div class="container">
+      <!-- TABS -->
+      <q-tabs
+        active-bg-color="primary"
+        active-color="white"
+        class="bg-secondary text-primary"
+        dense
+        indicator-color="transparent"
+        inline-label
+        top-indicator
+        v-model="myRoute"
+      >
+        <q-route-tab
+          :label="$lang.Gestion"
+          icon="assignment_turned_in"
+          name="gestion"
+          to="/recibos/gestion"
+        />
+        <q-route-tab
+          :label="$lang.BajasPendientes"
+          icon="assignment_returned"
+          name="bajas"
+          to="/recibos/bajas"
+        />
+        <q-route-tab
+          :label="$lang.Liquidacion"
+          icon="credit_card"
+          name="liq"
+          to="/recibos/liq"
+        />
+        <q-tab
+          :label="calculos.importe"
+          class="text-primary"
+          disabled
+          icon="euro_symbol"
+        />
+      </q-tabs>
+      <!-- SELECT FILTERS TOTALS-->
+      <div>
+        <div class="row text-center">
+          <div class="col-xs-12 col-md-4" style="padding: 10px">
+            <q-input
+              :label="$lang.FiltroRapido"
+              dense
+              type="text"
+              v-model="quickFilter"
+            >
+              <q-icon name="filter_list" slot="prepend" />
+              <q-icon
+                @click="quickFilter = ''"
+                class="cursor-pointer"
+                name="close"
+                slot="append"
+              />
+            </q-input>
+          </div>
+          <!-- FILTER ONLY GESTION -->
+          <template v-if="this.$route.params.recibo=='gestion'">
+            <div class="col-xs-12 col-md-4" style="padding: 10px">
+              <q-select
+                :label="$lang.FiltrosDeEstado"
+                :options="this.$lang.estados"
+                @input="callDataGestion"
+                dense
+                expandBesides
+                multiple
+                optionsDense
+                v-model="filter.estadosSel"
+              />
+            </div>
+            <div class="col-xs-6 col-md-2" style="padding: 10px">
+              <q-select
+                :label="$lang.HistorialUsuario"
+                :options="this.$lang.userby"
+                @input="callDataGestion"
+                dense
+                expandBesides
+                optionsDense
+                v-model="filter.userby"
+              />
+            </div>
+            <div class="col-xs-6 col-md-2" style="padding: 10px">
+              <q-toggle
+                :label="$lang.TodosLosRegistros"
+                @input="callDataGestion"
+                dense
+                v-model="filter.alldata"
+              >
+                <q-tooltip anchor="top middle" self="bottom middle"
+                  >{{$lang.TodosLosRegistrosT}}</q-tooltip
+                >
+              </q-toggle>
+            </div>
+          </template>
+          <!-- FILTER ONLY BAJAS -->
+          <template v-else-if="this.$route.params.recibo=='bajas'">
+            <div class="col-xs-12 col-md-4" style="padding: 10px">
+              <q-select
+                :label="$lang.ano"
+                :options="filter.years"
+                @input="callDataBajas"
+                dense
+                expandBesides
+                optionsDense
+                v-model="filter.year"
+              />
+            </div>
+            <div class="col-xs-12 col-md-4" style="padding: 10px">
+              <q-select
+                :label="$lang.mes"
+                :options="filter.months"
+                @input="callDataBajas"
+                dense
+                expandBesides
+                optionsDense
+                v-model="filter.month"
+              />
+            </div>
+          </template>
+          <!-- FILTER ONLY LIQ & CAJA -->
+          <template v-else-if="this.$route.params.recibo=='liq'">
+            <div class="col-xs-12 col-md-4" style="padding: 10px">
+              <q-select
+                :label="$lang.ano"
+                :options="filter.years"
+                @input="callDataLiq"
+                dense
+                expandBesides
+                optionsDense
+                v-model="filter.year"
+              />
+            </div>
+            <div class="col-xs-12 col-md-4" style="padding: 10px">
+              <q-select
+                :label="$lang.semana"
+                :options="filter.weeks"
+                @input="callDataLiq"
+                dense
+                expandBesides
+                optionsDense
+                v-model="filter.week"
+              />
+            </div>
+          </template>
+        </div>
+        <!-- MINI TOOLBAR-->
+        <q-bar class="bg-primary text-white">
+          <q-btn
+            @click="dialogModel=true"
+            dense
+            flat
+            icon="add"
+            v-if="!recibo.selected && !recibo.selectedSub"
+            >{{$lang.NuevoRecibo}}</q-btn
+          >
+          <q-btn
+            @click="dialogModel=true"
+            dense
+            flat
+            icon="add"
+            v-if="recibo.selected"
+            >{{$lang.NuevaGestion}}</q-btn
+          >
+          <q-btn
+            @click="dialogModel=true"
+            dense
+            flat
+            icon="edit"
+            v-if="recibo.selectedSub"
+            >{{$lang.EditarGestion}}</q-btn
+          >
+          <q-btn
+            @click="onDelete"
+            color="warning"
+            dense
+            flat
+            icon="delete"
+            v-if="recibo.selected"
+            >{{$lang.EliminarRecibo}}</q-btn
+          >
+          <q-btn
+            @click="onDelete"
+            color="warning"
+            dense
+            flat
+            icon="delete"
+            v-if="recibo.selectedSub"
+            >{{$lang.EliminarGestion}}</q-btn
+          >
+          <q-space />
+          <!-- COLORS HELP -->
+          <div>
+            <q-btn color="primary" icon="help_outline" size="sm">
+              <q-popup-proxy>
+                <q-list dense>
+                  <q-item
+                    :key="key"
+                    :style="{'background-color': helpColors[key]}"
+                    v-for="(value, key) in $lang.ayuda"
+                  >
+                    <q-item-section>
+                      <q-item-label>{{value}}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-popup-proxy>
+            </q-btn>
+          </div>
+        </q-bar>
+      </div>
+      <!-- TABLA DE DATOS -->
+      <!-- <n-tables :columnDefs="columnDefs" :columnDefsSub="columnDefsSub" :filters="filters" :masterDetail="true" :quickFilter="quickFilter" :rowClassRules="rowClassRules" :rowData="rowData" @gridData="gridData" @rowSelected="rowSelected" @rowSelectedSub="rowSelectedSub"/> -->
+      <!-- DIALOGO -->
+      <!-- <n-dialog :data="dialogData" :fields="dialogFields" :model="dialogModel" @cancel="dialogModel=false" @onChange="onChange" @onSave="onSave"></n-dialog> -->
+    </div>
+  `,
   data() {
     return {
       filters: null,
@@ -621,36 +750,56 @@ const Recibos = {
 
 const Error404 = {
   name: "Error404",
-  template: `<div>
-  <div id="notfound">
-    <div class="notfound">
-      <div class="notfound-404"></div>
-      <h1>404</h1>
-      <h2>Oops! Página inexistente</h2>
-      <p>Lo sentimos, la página solicitada no existe, fué eliminada, cambiada de nombre o está temporalmente
-        indisponible</p>
-      <a href="#">Volver a Inicio</a>
+  template: /* HTML */ `
+    <div>
+      <div id="notfound">
+        <div class="notfound">
+          <div class="notfound-404"></div>
+          <h1>404</h1>
+          <h2>Oops! Página inexistente</h2>
+          <p>
+            Lo sentimos, la página solicitada no existe, fué eliminada, cambiada
+            de nombre o está temporalmente indisponible
+          </p>
+          <a href="#">Volver a Inicio</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>`
+  `
 };
 
 const Clientes = {
   name: "Clientes",
-  template: `<div class="container">
-  <div class="row text-center">
-    <div class="col-xs-12" style="padding: 10px">
-      <q-input :label="$lang.FiltroRapido" dense type="text" v-model="quickFilter">
-        <q-icon name="filter_list" slot="prepend" />
-        <q-icon @click="quickFilter = ''" class="cursor-pointer" name="close" slot="append" />
-      </q-input>
+  template: /* HTML */ `
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-xs-12" style="padding: 10px">
+          <q-input
+            :label="$lang.FiltroRapido"
+            dense
+            type="text"
+            v-model="quickFilter"
+          >
+            <q-icon name="filter_list" slot="prepend" />
+            <q-icon
+              @click="quickFilter = ''"
+              class="cursor-pointer"
+              name="close"
+              slot="append"
+            />
+          </q-input>
+        </div>
+      </div>
+      <n-tables
+        :columnDefs="columnDefs"
+        :quickFilter="quickFilter"
+        :rowClassRules="rowClassRules"
+        :rowData="rowData"
+      />
     </div>
-  </div>
-  <n-tables :columnDefs="columnDefs" :quickFilter="quickFilter" :rowClassRules="rowClassRules" :rowData="rowData" />
-</div>
   `,
   components: {
-    NTables
+    DataTable
   },
   mixins: [mixins],
   data() {
